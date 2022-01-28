@@ -89,7 +89,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
     // coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
 
     // viewmodel
     def viewmodel_version = "2.4.0"
@@ -108,7 +108,7 @@ dependencies {
 
     //Dagger hilt
     implementation "com.google.dagger:hilt-android:2.40.4"
-    kapt "com.google.dagger:hilt-android-compiler:2.38.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.40"
 
     // work manager
     var work_manager_runtime_version = "2.7.1"

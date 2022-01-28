@@ -1,17 +1,12 @@
 package com.example.task.presentation.ui.freshproducts
 
-import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.task.MainCoroutineRule
-import com.example.task.data.ProductRepoTest
-import com.example.task.domain.usecases.freshproducs.FreshProductsUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.*
-import org.mockito.Mockito
 
 
 class FreshProductsViewModelTest {
-
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -23,9 +18,12 @@ class FreshProductsViewModelTest {
 
     @Before
     fun setUp() {
-        val application = Mockito.mock(Application::class.java)
+        /**
+         * https://stackoverflow.com/a/62312473
+         * we can use val resource = Mockito.mock(ResourcesResolver::class.java) to inject interface (instead of FakeResourcesResolverTest() )
+         * */
         scanProductViewModelTest = FreshProductsViewModel(
-            application,
+            FakeResourcesResolverTest(),
             FakeFreshProductsUseCaseTest()
         )
     }

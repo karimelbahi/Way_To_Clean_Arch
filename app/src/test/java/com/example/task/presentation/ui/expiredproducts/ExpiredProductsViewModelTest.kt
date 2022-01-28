@@ -5,6 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.task.MainCoroutineRule
 import com.example.task.data.ProductRepoTest
 import com.example.task.presentation.ui.freshproducts.FreshProductsViewModel
+import com.example.task.presentation.utils.ResourcesResolver
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
 import org.junit.Before
@@ -25,9 +26,9 @@ class ExpiredProductsViewModelTest {
 
     @Before
     fun setUp() {
-        val application = Mockito.mock(Application::class.java)
+        val resourcesResolver=Mockito.mock(ResourcesResolver::class.java)
         scanProductViewModelTest = ExpiredProductsViewModel(
-            application,
+            resourcesResolver,
             FakeExpiredProductViewStateMapper(),
             FakeExpiredProductsUseCaseTest()
         )

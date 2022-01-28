@@ -6,6 +6,7 @@ import com.example.task.data.ProductRepoTest
 import com.example.task.domain.entity.Product
 import com.example.task.MainCoroutineRule
 import com.example.task.domain.usecases.scanproduct.ScanProductUseCaseImplTest
+import com.example.task.presentation.utils.ResourcesResolver
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
 import org.junit.Before
@@ -23,11 +24,12 @@ class ScanProductViewModelTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
     private lateinit var scanProductViewModelTest: ScanProductViewModel
+    val resourcesResolver: ResourcesResolver = Mockito.mock(ResourcesResolver::class.java)
 
     @Before
     fun setUp() {
-        val application = Mockito.mock(Application::class.java)
-        scanProductViewModelTest = ScanProductViewModel(application,FakeScanProductUseCaseTest())
+        scanProductViewModelTest =
+            ScanProductViewModel(resourcesResolver, FakeScanProductUseCaseTest())
     }
 
 

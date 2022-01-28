@@ -6,6 +6,8 @@ import com.example.task.domain.usecases.freshproducs.FreshProductsUseCase
 import com.example.task.domain.usecases.freshproducs.FreshProductsUseCaseImpl
 import com.example.task.domain.usecases.scanproduct.ScanProductUseCase
 import com.example.task.domain.usecases.scanproduct.ScanProductUseCaseImpl
+import com.example.task.presentation.utils.ResourcesResolver
+import com.example.task.presentation.utils.ResourcesResolverImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +39,13 @@ object UseCasesModule {
         scanProductUseCaseImpl: ScanProductUseCaseImpl
     ): ScanProductUseCase =
         scanProductUseCaseImpl
+
+    @Provides
+    @Singleton
+    fun provideResourcesResolver(
+        resourcesResolverImpl: ResourcesResolverImpl
+    ): ResourcesResolver =
+        resourcesResolverImpl
 
 
 /*    @Provides
