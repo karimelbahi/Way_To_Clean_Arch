@@ -1,10 +1,9 @@
 package com.example.task.presentation.ui.expiredproducts
 
-import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.task.MainCoroutineRule
-import com.example.task.data.ProductRepoTest
-import com.example.task.presentation.ui.freshproducts.FreshProductsViewModel
+import com.example.task.domain.usecases.expiredprducts.ExpiredProductsUseCase
+import com.example.task.presentation.ui.expiredproducts.mapper.ExpiredProductViewStateMapper
 import com.example.task.presentation.utils.ResourcesResolver
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
@@ -24,13 +23,18 @@ class ExpiredProductsViewModelTest {
     var mainCoroutineRule = MainCoroutineRule()
     private lateinit var scanProductViewModelTest: ExpiredProductsViewModel
 
+    private val expiredProductViewStateMapper: ExpiredProductViewStateMapper =
+        Mockito.mock(ExpiredProductViewStateMapper::class.java)
+    private val expiredProductsUseCase: ExpiredProductsUseCase =
+        Mockito.mock(ExpiredProductsUseCase::class.java)
+
     @Before
     fun setUp() {
-        val resourcesResolver=Mockito.mock(ResourcesResolver::class.java)
+        val resourcesResolver = Mockito.mock(ResourcesResolver::class.java)
         scanProductViewModelTest = ExpiredProductsViewModel(
             resourcesResolver,
-            FakeExpiredProductViewStateMapper(),
-            FakeExpiredProductsUseCaseTest()
+            expiredProductViewStateMapper,
+            expiredProductsUseCase
         )
     }
 
