@@ -1,32 +1,29 @@
 package com.example.task.data
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
+import androidx.test.platform.app.InstrumentationRegistry
 import com.example.task.data.local.daos.ProductsDao
 import com.example.task.data.local.database.ProductsDatabase
-import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.espresso.matcher.ViewMatchers.assertThat
-
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.example.task.utilities.baseTestProduct
+import com.example.task.utilities.firstTestProduct
+import com.example.task.utilities.secondTestProduct
+import com.example.task.utilities.thirdTestProduct
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+import org.hamcrest.CoreMatchers.equalTo
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
-import org.junit.runner.RunWith
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.espresso.matcher.ViewMatchers
-import com.example.task.data.local.database.model.ProductDB
-import com.example.task.utilities.*
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import org.hamcrest.CoreMatchers.equalTo
+import org.junit.runner.RunWith
 
 
-//@ExperimentalCoroutinesApi
-//@RunWith(AndroidJUnit4::class)
-//@SmallTest
+@RunWith(AndroidJUnit4::class)
+@SmallTest
 class ProductsDaoTest {
 
     @get:Rule
@@ -36,8 +33,10 @@ class ProductsDaoTest {
 
     @Before
     fun createDb() = runBlocking {
+
+        // = ApplicationProvider.getApplicationContext() or Mockito.mock(Application::class.java)
         val context =
-            InstrumentationRegistry.getInstrumentation().targetContext // = ApplicationProvider.getApplicationContext()
+            InstrumentationRegistry.getInstrumentation().targetContext
         productsDatabase = Room.inMemoryDatabaseBuilder(
             context,
             ProductsDatabase::class.java
