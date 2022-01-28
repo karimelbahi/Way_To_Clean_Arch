@@ -14,8 +14,8 @@ import com.example.task.presentation.utils.currentTime
 import com.example.task.presentation.utils.diffDaysBetweenTwoTimes
 import javax.inject.Inject
 
-class ProductListAdapter @Inject constructor() :
-    ListAdapter<Product, ProductListAdapter.ViewHolder>(CountryListDiffCallback()) {
+class FreshProductsAdapter @Inject constructor() :
+    ListAdapter<Product, FreshProductsAdapter.ViewHolder>(CountryListDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =

@@ -9,18 +9,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ProductRepoImpl @Inject constructor(
     private val productDBMapper: ProductDBMapper,
     private val productsDao: ProductsDao
-) :
-    ProductsRepo {
+) : ProductsRepo {
 
-    override suspend fun checkProductsExpiredDateStatus() {
-        productsDao.getFreshProducts().first().map { product ->
-            if (product.expiredDate < System.currentTimeMillis())
-                productsDao.updateProductsExpiredDateStatus(product.id)
-        }
+    override suspend fun updateAllProductsExpiredDateStatus(currentTime :Long) {
+        productsDao.updateAllProductsExpiredDateStatus(currentTime = currentTime)
     }
 
     override suspend fun getProducts(): Flow<List<Product>> = productsDao.getFreshProducts().map {

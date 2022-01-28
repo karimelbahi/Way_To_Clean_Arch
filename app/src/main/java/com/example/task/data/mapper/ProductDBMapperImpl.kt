@@ -3,7 +3,9 @@ package com.example.task.data.mapper
 import com.example.task.data.local.database.model.ProductDB
 import com.example.task.domain.entity.Product
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ProductDBMapperImpl @Inject constructor() : ProductDBMapper {
 
     override fun mapDomainProductToDb(product: Product): ProductDB {

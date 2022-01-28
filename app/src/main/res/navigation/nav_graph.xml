@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.task.presentation.ui.freshproducts.ProductListFragment"
+        android:name="com.example.task.presentation.ui.freshproducts.FreshProductsFragment"
         android:label="Fresh Products"
-        tools:layout="@layout/fragment_product_list">
+        tools:layout="@layout/fragment_fresh_products">
         <action
-            android:id="@+id/action_productListFragment_to_scanBarcodeFragment"
-            app:destination="@id/navigation_scan_barcode" />
+            android:id="@+id/action_productListFragment_to_scanBarcodeFragment"/>
+
     </fragment>
     <fragment
         android:id="@+id/navigation_scan_barcode"
@@ -24,11 +24,17 @@
             android:id="@+id/action_scanBarcodeFragment_to_expiredProductsFragment"
             app:destination="@id/navigation_expired_products" />
     </fragment>
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_scan_barcode"-->
+<!--        android:name="com.example.task.presentation.ui.scanproduct.ScannerFragment"-->
+<!--        android:label="ScannerFragment" />-->
     <fragment
         android:id="@+id/navigation_expired_products"
         android:name="com.example.task.presentation.ui.expiredproducts.ExpiredProductsFragment"
         android:label="Expired Products"
         tools:layout="@layout/fragment_expired_products"/>
+
 
 
 </navigation>

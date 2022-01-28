@@ -9,6 +9,7 @@ import com.example.task.R
 import com.example.task.data.local.database.model.ProductDB
 import com.example.task.domain.entity.Product
 import com.example.task.domain.repo.ProductsRepo
+import com.example.task.domain.usecases.scanproduct.ScanProductUseCase
 import com.example.task.presentation.utils.convertLongToStrDate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -21,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ScanProductViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val repository: ProductsRepo
+    private val scanProductUseCase: ScanProductUseCase
 ) : ViewModel() {
 
 
@@ -37,7 +38,7 @@ class ScanProductViewModel @Inject constructor(
 
         if (productDateValidation(product))
             viewModelScope.launch {
-                val response = repository.insertProduct(product)
+                val response = scanProductUseCase.insertProduct(product)
                 if (response > 0) {
                     withContext(Dispatchers.Main) {
                         _insertEvent.postValue(context.getString(R.string.product_added_successful))
@@ -73,11 +74,6 @@ class ScanProductViewModel @Inject constructor(
             }
         }
         return validate
-    }
-
-
-    companion object {
-        private const val TAG = "ScanProductViewModel"
     }
 
 }

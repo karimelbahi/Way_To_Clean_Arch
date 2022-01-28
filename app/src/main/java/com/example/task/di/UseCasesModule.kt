@@ -2,6 +2,10 @@ package com.example.task.di
 
 import com.example.task.domain.usecases.expiredprducts.ExpiredProductsUseCase
 import com.example.task.domain.usecases.expiredprducts.ExpiredProductsUseCaseImpl
+import com.example.task.domain.usecases.freshproducs.FreshProductsUseCase
+import com.example.task.domain.usecases.freshproducs.FreshProductsUseCaseImpl
+import com.example.task.domain.usecases.scanproduct.ScanProductUseCase
+import com.example.task.domain.usecases.scanproduct.ScanProductUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,10 +24,24 @@ object UseCasesModule {
     ): ExpiredProductsUseCase =
         expiredProductsUseCaseImpl
 
+    @Provides
+    @Singleton
+    fun provideFreshProductsUseCase(
+        freshProductsUseCaseImpl: FreshProductsUseCaseImpl
+    ): FreshProductsUseCase =
+        freshProductsUseCaseImpl
 
-//    @Provides
-//    @Singleton
-//    fun provideExpiredProductViewStateMapper(expiredProductViewStateMapperImpl: ExpiredProductViewStateMapperMapperImpl): ExpiredProductViewStateMapper =
-//        expiredProductViewStateMapperImpl
+    @Provides
+    @Singleton
+    fun provideScanProductUseCase(
+        scanProductUseCaseImpl: ScanProductUseCaseImpl
+    ): ScanProductUseCase =
+        scanProductUseCaseImpl
+
+
+/*    @Provides
+    @Singleton
+    fun provideExpiredProductViewStateMapper(expiredProductViewStateMapperImpl: ExpiredProductViewStateMapperMapperImpl): ExpiredProductViewStateMapper =
+        expiredProductViewStateMapperImpl*/
 
 }

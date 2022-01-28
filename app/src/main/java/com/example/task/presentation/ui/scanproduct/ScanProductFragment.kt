@@ -2,6 +2,7 @@ package com.example.task.presentation.ui.scanproduct
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.SurfaceHolder
@@ -12,10 +13,10 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.task.R
-import com.example.task.data.local.database.model.ProductDB
 import com.example.task.databinding.FragmentScanProductBinding
 import com.example.task.domain.entity.Product
 import com.example.task.presentation.utils.*
@@ -52,7 +53,6 @@ class ScanProductFragment : Fragment(R.layout.fragment_scan_product) {
             }
         }
 
-        setupCamera()
         binding.addProductBtn.setOnClickListener {
             val customCalendar = Calendar.getInstance()
             customCalendar.set(
@@ -95,6 +95,7 @@ class ScanProductFragment : Fragment(R.layout.fragment_scan_product) {
                 insertProduct(customCalendar.timeInMillis)
             }
         }
+        setupCamera()
         setObservers()
     }
 
@@ -158,7 +159,7 @@ class ScanProductFragment : Fragment(R.layout.fragment_scan_product) {
 
         // animate recognition line
         val aniSlide: Animation =
-            AnimationUtils.loadAnimation(requireActivity(), R.anim.scanner_blink_animation)
+            AnimationUtils.loadAnimation(requireActivity(), R.anim.scanner_blank_animation)
         binding.barcodeRecognitionView.startAnimation(aniSlide)
     }
 
@@ -167,19 +168,21 @@ class ScanProductFragment : Fragment(R.layout.fragment_scan_product) {
             with(binding.root) {
                 when {
                     granted -> {
+                        Log.i("infoLog", "permission  granted ");
                         permissionGranted = true
                         setupControls()
                     }
                     shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+                        Log.i("infoLog", "permission not granted ");
                         permissionGranted = false
                     }
                     else -> {
+                        Log.i("infoLog", "permission not granted ");
                         permissionGranted = false
                     }
                 }
             }
         }
-
 
 
     private fun setupControls() {
@@ -225,8 +228,8 @@ class ScanProductFragment : Fragment(R.layout.fragment_scan_product) {
 
         barcodeDetector.setProcessor(object : Detector.Processor<Barcode> {
             override fun release() {
-                Toast.makeText(requireActivity(), "Scanner has been closed", Toast.LENGTH_SHORT)
-                    .show()
+                Log.i("infoLog", "Scanner has been closed ");
+
             }
 
             override fun receiveDetections(detections: Detector.Detections<Barcode>) {
@@ -240,7 +243,7 @@ class ScanProductFragment : Fragment(R.layout.fragment_scan_product) {
                         binding.productCodeEt.setText(scannedValue)
                     }
                 } else {
-                    Log.i("infoLog","ScanProductFragment, receiveDetections , 251")
+                    Log.i("infoLog", "bar code size not equal one")
                 }
             }
         })
@@ -248,7 +251,15 @@ class ScanProductFragment : Fragment(R.layout.fragment_scan_product) {
 
     override fun onResume() {
         super.onResume()
-        setupControls()
+//        if (permissionGranted)
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.CAMERA
+            )
+            == PackageManager.PERMISSION_GRANTED
+        )
+            setupControls()
+
     }
 
     override fun onDestroy() {

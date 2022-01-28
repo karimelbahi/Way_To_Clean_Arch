@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.task.R
 import com.example.task.domain.entity.Product
 import com.example.task.domain.repo.ProductsRepo
+import com.example.task.domain.usecases.freshproducs.FreshProductsUseCase
+import com.example.task.domain.usecases.freshproducs.FreshProductsUseCaseImpl
 import com.example.task.presentation.utils.Constants.PRODUCTS_LIST_MINIMUM_COUNT
 import com.example.task.presentation.utils.Constants.PRODUCT_EXPIRED_DATE_STATUS_THREAD
 import com.example.task.presentation.utils.Resource
@@ -21,21 +23,20 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class ProductListViewModel @Inject constructor(
+class FreshProductsViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val repository: ProductsRepo
+    private val freshProductsUseCase: FreshProductsUseCase
 ) : ViewModel() {
 
 
     private val _products: MutableLiveData<Resource<List<Product>>> = MutableLiveData()
     val products = _products as LiveData<Resource<List<Product>>>
 
-
     @ObsoleteCoroutinesApi
     fun getProducts() {
         viewModelScope.launch(newSingleThreadContext(PRODUCT_EXPIRED_DATE_STATUS_THREAD)) {
-            repository.checkProductsExpiredDateStatus()
-            repository.getProducts()
+            freshProductsUseCase.updateAllProductsExpiredDateStatus()
+            freshProductsUseCase.getProducts()
                 .onStart {
                 }.catch { error ->
                     withContext(Dispatchers.Main) {

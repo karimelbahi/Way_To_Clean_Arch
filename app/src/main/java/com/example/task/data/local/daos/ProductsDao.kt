@@ -29,6 +29,10 @@ interface ProductsDao {
     @Query("UPDATE PRODUCT_TABLE SET expired = :expired WHERE id =:id")
     fun updateProductsExpiredDateStatus(id: Long, expired: Boolean = true): Int
 
+    // TODO: 1/27/2022 expiredate more that curernt date 
+    @Query("UPDATE PRODUCT_TABLE SET expired = :expired WHERE  expiredDate <:currentTime ")
+    fun updateAllProductsExpiredDateStatus(expired: Boolean = true, currentTime: Long): Int
+
 //    @Query("UPDATE PRODUCT_TABLE SET expiredDate = :expiredDate WHERE id =:id")
 //    suspend fun updateProductExpireDate(id: Long, expiredDate: Long): Int
 

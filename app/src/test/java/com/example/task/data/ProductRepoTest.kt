@@ -1,13 +1,12 @@
 package com.example.task.data
 
-import com.example.task.data.local.database.model.ProductDB
 import com.example.task.domain.entity.Product
 import com.example.task.domain.repo.ProductsRepo
 import kotlinx.coroutines.flow.Flow
 
-class FakeScanProductRepoTest :ProductsRepo {
+class ProductRepoTest : ProductsRepo {
 
-    override suspend fun checkProductsExpiredDateStatus() {
+    override suspend fun updateAllProductsExpiredDateStatus(currentTime: Long) {
         TODO("Not yet implemented")
     }
 
