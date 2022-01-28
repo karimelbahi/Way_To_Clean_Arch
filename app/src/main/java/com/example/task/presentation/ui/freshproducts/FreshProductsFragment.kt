@@ -48,10 +48,15 @@ class FreshProductsFragment : Fragment(R.layout.fragment_fresh_products) {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getProducts()
+
+    }
+
     @ObsoleteCoroutinesApi
     private fun setObservers() {
 
-        viewModel.getProducts()
         binding.progressCircular.visible()
         viewModel.products.observe(viewLifecycleOwner, { products ->
             when (products.status) {

@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task.R
-import com.example.task.app.MyApplication
 import com.example.task.databinding.ProductListItemBinding
 import com.example.task.domain.entity.Product
+import com.example.task.presentation.utils.ResourcesResolver
 import com.example.task.presentation.utils.convertLongToStrDate
 import com.example.task.presentation.utils.currentTime
 import com.example.task.presentation.utils.diffDaysBetweenTwoTimes
 import javax.inject.Inject
 
-class FreshProductsAdapter @Inject constructor() :
+class FreshProductsAdapter @Inject constructor(private val resourcesResolver: ResourcesResolver) :
     ListAdapter<Product, FreshProductsAdapter.ViewHolder>(CountryListDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,8 +39,7 @@ class FreshProductsAdapter @Inject constructor() :
                     productTypeTv.text = type
                     expireDateTv.text = expiredDate.convertLongToStrDate()
                     remainingDaysTv.text =
-                        MyApplication.applicationContext()
-                            .getString(R.string.left_days_num, leftDays)
+                        resourcesResolver.getString(R.string.left_days_num, leftDays)
                 }
             }
         }

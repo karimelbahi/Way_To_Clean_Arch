@@ -6,6 +6,9 @@ import com.example.task.presentation.utils.currentTime
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
 
 class FreshProductsUseCaseImpl @Inject constructor(
     private val repository: ProductsRepo
@@ -19,11 +22,5 @@ class FreshProductsUseCaseImpl @Inject constructor(
         repository.getProducts()
 
 
-    override suspend fun getFreshProductsSnapshot(): List<Product> {
-        TODO("Not yet implemented")
-    }
 
-    override suspend fun updateScheduledNotifications(): Int {
-        TODO("Not yet implemented")
-    }
 }

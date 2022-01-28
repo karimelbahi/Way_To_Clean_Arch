@@ -10,41 +10,42 @@ import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.hilt.work.HiltWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.task.R
+import com.example.task.domain.entity.Product
 import com.example.task.presentation.ui.main.MainActivity
 import com.example.task.presentation.utils.Constants.NOTIFICATION_CHANNEL
 import com.example.task.presentation.utils.Constants.NOTIFICATION_ID
 import com.example.task.presentation.utils.Constants.NOTIFICATION_NAME
-import com.example.task.presentation.utils.Constants.PRODUCT_CODE
-import com.example.task.presentation.utils.Constants.PRODUCT_ID
-import com.example.task.presentation.utils.Constants.PRODUCT_NAME
-import com.example.task.presentation.utils.Constants.PRODUCT_TYPE
+import com.example.task.presentation.utils.Constants.PRODUCT
 import com.example.task.presentation.utils.vectorToBitmap
+import com.google.gson.Gson
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 
-class ExpiredProductPushNotificationWorker(val context: Context, workerParams: WorkerParameters) :
+@HiltWorker
+class ExpiredProductPushNotificationWorker @AssistedInject constructor(
+    @Assisted val context: Context,
+    @Assisted workerParams: WorkerParameters,
+    private val gson: Gson
+) :
     Worker(
         context,
         workerParams
     ) {
     override fun doWork(): Result {
 
-        val productId = inputData.getLong(PRODUCT_ID, 0L)
-        val productName = inputData.getString(PRODUCT_NAME) ?: ""
-        val productCode = inputData.getString(PRODUCT_CODE) ?: ""
-        val productType = inputData.getString(PRODUCT_TYPE) ?: ""
+        val product = gson.fromJson(inputData.getString(PRODUCT), Product::class.java)
 
-        fireNotification(productId, productName, productCode, productType)
+        fireNotification(product)
         return Result.success()
     }
 
 
     private fun fireNotification(
-        productId: Long,
-        productName: String,
-        productCode: String,
-        productType: String
+        product: Product
     ) {
         val intent = Intent(context, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -65,7 +66,7 @@ class ExpiredProductPushNotificationWorker(val context: Context, workerParams: W
             .setContentText(
                 context.getString(
                     R.string.expired_date_warn_notification_content,
-                    productName, productCode, productType
+                    product.name, product.code, product.type
                 )
             )
             .setStyle(
@@ -73,7 +74,7 @@ class ExpiredProductPushNotificationWorker(val context: Context, workerParams: W
                     .bigText(
                         context.getString(
                             R.string.expired_date_warn_notification_content,
-                            productName, productCode, productType
+                            product.name, product.code, product.type
                         )
                     )
             )
@@ -105,7 +106,7 @@ class ExpiredProductPushNotificationWorker(val context: Context, workerParams: W
             notificationManager.createNotificationChannel(channel)
         }
 
-        notificationManager.notify(productId.toInt(), notification.build())
+        notificationManager.notify(product.id.toInt(), notification.build())
     }
 
 

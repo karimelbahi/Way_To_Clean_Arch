@@ -4,6 +4,8 @@ import com.example.task.domain.usecases.expiredprducts.ExpiredProductsUseCase
 import com.example.task.domain.usecases.expiredprducts.ExpiredProductsUseCaseImpl
 import com.example.task.domain.usecases.freshproducs.FreshProductsUseCase
 import com.example.task.domain.usecases.freshproducs.FreshProductsUseCaseImpl
+import com.example.task.domain.usecases.hourlyexpireddatereprt.HourlyExpiredDateReportUseCase
+import com.example.task.domain.usecases.hourlyexpireddatereprt.HourlyExpiredDateReportUseCaseImpl
 import com.example.task.domain.usecases.scanproduct.ScanProductUseCase
 import com.example.task.domain.usecases.scanproduct.ScanProductUseCaseImpl
 import com.example.task.presentation.utils.ResourcesResolver
@@ -42,15 +44,17 @@ object UseCasesModule {
 
     @Provides
     @Singleton
+    fun provideHourlyExpiredDateReportUseCase(
+        hourlyExpiredDateReportUseCaseImpl: HourlyExpiredDateReportUseCaseImpl
+    ): HourlyExpiredDateReportUseCase =
+        hourlyExpiredDateReportUseCaseImpl
+
+    @Provides
+    @Singleton
     fun provideResourcesResolver(
         resourcesResolverImpl: ResourcesResolverImpl
     ): ResourcesResolver =
         resourcesResolverImpl
 
-
-/*    @Provides
-    @Singleton
-    fun provideExpiredProductViewStateMapper(expiredProductViewStateMapperImpl: ExpiredProductViewStateMapperMapperImpl): ExpiredProductViewStateMapper =
-        expiredProductViewStateMapperImpl*/
 
 }

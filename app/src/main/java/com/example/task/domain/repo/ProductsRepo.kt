@@ -9,16 +9,13 @@ import javax.inject.Singleton
 interface ProductsRepo {
 
     // home
-//    suspend fun checkProductsExpiredDateStatus(): Flow<List<Product>>
     suspend fun updateAllProductsExpiredDateStatus(currentTime :Long): Unit
     suspend fun getProducts(): Flow<List<Product>>
     suspend fun getFreshProductsSnapshot(): List<Product>
     suspend fun updateScheduledNotifications(): Int
 
-
     // scan product
     suspend fun insertProduct(product: Product): Long
-
 
     // expired product
     suspend fun getExpiredProducts(): Flow<List<Product>>

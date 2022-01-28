@@ -9,6 +9,7 @@ object Constants {
     const val PRODUCT_TABLE = "PRODUCT_TABLE"
 
     // product
+    const val PRODUCT = "PRODUCT"
     const val PRODUCT_ID = "PRODUCT_ID"
     const val PRODUCT_NAME = "PRODUCT_NAME"
     const val PRODUCT_CODE = "PRODUCT_CODE"

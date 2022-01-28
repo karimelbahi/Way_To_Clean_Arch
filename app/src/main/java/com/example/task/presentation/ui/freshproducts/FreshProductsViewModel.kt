@@ -1,5 +1,6 @@
 package com.example.task.presentation.ui.freshproducts
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
+import kotlin.system.measureTimeMillis
 
 
 @HiltViewModel
@@ -25,13 +27,11 @@ class FreshProductsViewModel @Inject constructor(
     private val freshProductsUseCase: FreshProductsUseCase
 ) : ViewModel() {
 
-
     private val _products: MutableLiveData<Resource<List<Product>>> = MutableLiveData()
     val products = _products as LiveData<Resource<List<Product>>>
 
-    @ObsoleteCoroutinesApi
     fun getProducts() {
-        viewModelScope.launch(newSingleThreadContext(PRODUCT_EXPIRED_DATE_STATUS_THREAD)) {
+        viewModelScope.launch(Dispatchers.IO) {
             freshProductsUseCase.updateAllProductsExpiredDateStatus()
             freshProductsUseCase.getProducts()
                 .onStart {
