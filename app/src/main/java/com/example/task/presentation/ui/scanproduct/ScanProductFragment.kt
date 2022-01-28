@@ -103,6 +103,7 @@ class ScanProductFragment : Fragment(R.layout.fragment_scan_product) {
     private fun insertProduct(expiryDate: Long) {
         viewModel.insertProduct(
             Product(
+                id=0L,
                 code = binding.productCodeEt.text.toString(),
                 name = binding.productNameEt.text.toString(),
                 type = if (::radio.isInitialized) radio.text.toString() else "",

@@ -19,12 +19,11 @@ class ExpiredProductViewStateMapperImpl @Inject constructor() :
     override fun mapProductToViewState(product: Product): ExpiredProductViewState {
         return with(product) {
             ExpiredProductViewState(
+                id=id,
                 code = code,
                 name = name,
                 type = type,
-                expiredDate = applySpanToExpiredDate(expiredDate.convertLongToStrDate()),
-                isExpired = product.isExpired,
-                isWarningNotificationScheduled = product.isWarningNotificationScheduled
+                expiredDate = applySpanToExpiredDate(expiredDate.convertLongToStrDate())
             )
         }
 
