@@ -10,51 +10,46 @@ import com.example.task.domain.usecases.scanproduct.ScanProductUseCase
 import com.example.task.domain.usecases.scanproduct.ScanProductUseCaseImpl
 import com.example.task.presentation.utils.ResourcesResolver
 import com.example.task.presentation.utils.ResourcesResolverImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object UseCasesModule {
+abstract class UseCasesModule {
 
 
-    @Provides
     @Singleton
-    fun provideExpiredProductsUseCase(
+    @Binds
+    abstract fun provideExpiredProductsUseCase(
         expiredProductsUseCaseImpl: ExpiredProductsUseCaseImpl
-    ): ExpiredProductsUseCase =
-        expiredProductsUseCaseImpl
+    ): ExpiredProductsUseCase
 
-    @Provides
     @Singleton
-    fun provideFreshProductsUseCase(
+    @Binds
+    abstract fun provideFreshProductsUseCase(
         freshProductsUseCaseImpl: FreshProductsUseCaseImpl
-    ): FreshProductsUseCase =
-        freshProductsUseCaseImpl
+    ): FreshProductsUseCase
 
-    @Provides
     @Singleton
-    fun provideScanProductUseCase(
+    @Binds
+    abstract fun provideScanProductUseCase(
         scanProductUseCaseImpl: ScanProductUseCaseImpl
-    ): ScanProductUseCase =
-        scanProductUseCaseImpl
+    ): ScanProductUseCase
 
-    @Provides
     @Singleton
-    fun provideHourlyExpiredDateReportUseCase(
+    @Binds
+    abstract fun provideHourlyExpiredDateReportUseCase(
         hourlyExpiredDateReportUseCaseImpl: HourlyExpiredDateReportUseCaseImpl
-    ): HourlyExpiredDateReportUseCase =
-        hourlyExpiredDateReportUseCaseImpl
+    ): HourlyExpiredDateReportUseCase
 
-    @Provides
     @Singleton
-    fun provideResourcesResolver(
+    @Binds
+    abstract fun provideResourcesResolver(
         resourcesResolverImpl: ResourcesResolverImpl
-    ): ResourcesResolver =
-        resourcesResolverImpl
+    ): ResourcesResolver
 
 
 }

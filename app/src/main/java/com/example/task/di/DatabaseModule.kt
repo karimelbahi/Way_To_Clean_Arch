@@ -25,6 +25,7 @@ object DatabaseModule {
             .build()
     }
 
+
     @Singleton
     @Provides
     fun provideAppDao(appDatabase: ProductsDatabase): ProductsDao {

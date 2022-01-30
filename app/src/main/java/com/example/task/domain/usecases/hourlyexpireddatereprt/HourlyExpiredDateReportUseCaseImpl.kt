@@ -4,9 +4,8 @@ import com.example.task.domain.entity.Product
 import com.example.task.domain.repo.ProductsRepo
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+
 class HourlyExpiredDateReportUseCaseImpl @Inject constructor(
     private val repository: ProductsRepo
 ) : HourlyExpiredDateReportUseCase {

@@ -4,25 +4,23 @@ import com.example.task.data.mapper.ProductDBMapper
 import com.example.task.data.mapper.ProductDBMapperImpl
 import com.example.task.presentation.ui.expiredproducts.mapper.ExpiredProductViewStateMapper
 import com.example.task.presentation.ui.expiredproducts.mapper.ExpiredProductViewStateMapperImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object MapperModule {
+abstract class MapperModule {
 
-    @Provides
+
     @Singleton
-    fun provideProductDBMapper(productDBMapperImpl: ProductDBMapperImpl): ProductDBMapper =
-        productDBMapperImpl
+    @Binds
+    abstract fun provideProductDBMapper(productDBMapperImpl: ProductDBMapperImpl): ProductDBMapper
 
-
-    @Provides
     @Singleton
-    fun provideExpiredProductViewStateMapper(expiredProductViewStateMapperImpl: ExpiredProductViewStateMapperImpl): ExpiredProductViewStateMapper =
-        expiredProductViewStateMapperImpl
+    @Binds
+    abstract  fun provideExpiredProductViewStateMapper(expiredProductViewStateMapperImpl: ExpiredProductViewStateMapperImpl): ExpiredProductViewStateMapper
 
 }

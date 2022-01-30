@@ -32,20 +32,10 @@ class FreshProductsUseCaseImplTest {
     fun tearDown() {
     }
 
+
     @Test
-    fun checkProductsExpiredDateStatus() {
+    fun getFreshProducts() {
 
     }
 
-    @Test
-    fun getProducts() {
-    }
-
-    @Test
-    fun getFreshProductsSnapshot() {
-    }
-
-    @Test
-    fun updateScheduledNotifications() {
-    }
 }

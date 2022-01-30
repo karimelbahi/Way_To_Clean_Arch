@@ -1,6 +1,5 @@
 package com.example.task.presentation.ui.freshproducts
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,16 +8,15 @@ import com.example.task.R
 import com.example.task.domain.entity.Product
 import com.example.task.domain.usecases.freshproducs.FreshProductsUseCase
 import com.example.task.presentation.utils.Constants.PRODUCTS_LIST_MINIMUM_COUNT
-import com.example.task.presentation.utils.Constants.PRODUCT_EXPIRED_DATE_STATUS_THREAD
 import com.example.task.presentation.utils.Resource
 import com.example.task.presentation.utils.ResourcesResolver
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.system.measureTimeMillis
 
 
 @HiltViewModel
@@ -30,7 +28,7 @@ class FreshProductsViewModel @Inject constructor(
     private val _products: MutableLiveData<Resource<List<Product>>> = MutableLiveData()
     val products = _products as LiveData<Resource<List<Product>>>
 
-    fun getProducts() {
+    fun getFreshProducts() {
         viewModelScope.launch(Dispatchers.IO) {
             freshProductsUseCase.updateAllProductsExpiredDateStatus()
             freshProductsUseCase.getProducts()
@@ -61,10 +59,8 @@ class FreshProductsViewModel @Inject constructor(
                                 result,
                                 resourcesResolver.getString(R.string.products_fetched_successfully)
                             )
-
                     }
                 }
         }
     }
-
 }

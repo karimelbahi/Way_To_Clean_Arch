@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 
 class FreshProductsUseCaseImpl @Inject constructor(
     private val repository: ProductsRepo

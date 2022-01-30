@@ -97,7 +97,7 @@ class ScanProductFragment : Fragment(R.layout.fragment_scan_product) {
         }
         setupCamera()
         setObservers()
-    }
+        }
 
 
     private fun insertProduct(expiryDate: Long) {
