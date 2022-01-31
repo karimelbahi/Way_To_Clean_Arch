@@ -1,7 +1,6 @@
 package com.example.task.data.repo
 
 import com.example.task.data.local.daos.ProductsDao
-import com.example.task.data.local.database.model.ProductDB
 import com.example.task.data.mapper.ProductDBMapper
 import com.example.task.domain.entity.Product
 import com.example.task.domain.repo.ProductsRepo

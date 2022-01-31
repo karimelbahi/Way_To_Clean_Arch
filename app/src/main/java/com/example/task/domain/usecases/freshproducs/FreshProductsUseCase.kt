@@ -7,7 +7,6 @@ import javax.inject.Singleton
 
 interface FreshProductsUseCase {
 
-    suspend fun updateAllProductsExpiredDateStatus(): Unit
     suspend fun getProducts(): Flow<List<Product>>
 
 }

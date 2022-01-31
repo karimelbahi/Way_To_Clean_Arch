@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Product(
-    val id: Long,
+    val id: Long=0,
     val code: String,
     val name: String,
     val type: String,

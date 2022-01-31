@@ -30,7 +30,6 @@ class FreshProductsViewModel @Inject constructor(
 
     fun getFreshProducts() {
         viewModelScope.launch(Dispatchers.IO) {
-            freshProductsUseCase.updateAllProductsExpiredDateStatus()
             freshProductsUseCase.getProducts()
                 .onStart {
                 }.catch { error ->
