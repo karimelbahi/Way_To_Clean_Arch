@@ -1,7 +1,6 @@
 package com.example.task.presentation.ui.freshproducts
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,7 +30,6 @@ class FreshProductsFragment : Fragment(R.layout.fragment_fresh_products) {
 
         setUpViews()
         setObservers()
-        Log.e("karimDebug","FreshProductsFragment, onViewCreated , 34");
 
     }
 
