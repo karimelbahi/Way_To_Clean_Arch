@@ -11,11 +11,11 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.task"
-        minSdk 21
-        targetSdk 31
-        versionCode 1
-        versionName "1.0"
+        applicationId Android.applicationId
+        minSdkVersion Android.minSDK
+        targetSdkVersion Android.targetSDK
+        versionCode Android.versionCode
+        versionName Android.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -63,105 +63,111 @@ kapt {
 }
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+//    implementation Libs.kotlinStdLib
+//    implementation Libs.coreExt
+//    implementation Libs.appCompat
+//    implementation Libs.material
+//    implementation Libs.constraintLayout
+
+    implementation Libs.coreExt
+    implementation Libs.appCompat
+    implementation Libs.material
+    implementation Libs.constraintLayout
+    implementation Libs.legacySupport
+    testImplementation TestLibs.junit
+    androidTestImplementation TestLibs.junitExt
+    androidTestImplementation TestLibs.espresso
 
     //support multidex
-    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation Libs.multidex
 
     //Room
     def room_version = "2.4.1"
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
+    implementation Libs.roomVersion
+    kapt Libs.roomCompiler
+    implementation Libs.roomKtx
 
     // design
     def sp_version = "1.0.6"
-    implementation "com.intuit.sdp:sdp-android:$sp_version"
-    implementation "com.intuit.ssp:ssp-android:$sp_version"
+    implementation Libs.sdp
+    implementation Libs.ssp
 
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation Libs.recyclerview
 
     // coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
+    implementation Libs.coroutines
 
     // viewmodel
     def viewmodel_version = "2.4.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_version"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$viewmodel_version"
+    implementation Libs.lifecycleViewModel
+    implementation Libs.lifecycleRuntime
 
-    implementation "androidx.activity:activity-ktx:1.4.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation Libs.activityKtx
+    implementation Libs.kotlinStdLib
+    implementation Libs.coreExt
 
     // nav lib
     def nav_version = "2.3.5"
-    implementation "androidx.navigation:navigation-runtime-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation Libs.navigationRuntime
+    implementation Libs.navigationFragment
+    implementation Libs.navigationUi
 
     //Dagger hilt
-    implementation "com.google.dagger:hilt-android:2.40.4"
-    kapt "com.google.dagger:hilt-android-compiler:2.40"
+    implementation Libs.hiltAndroid
+    kapt Libs.hiltAndroidCompiler
 
     // work manager
     var work_manager_runtime_version = "2.7.1"
     var work_manager_hilt_version = "1.0.0"
-    implementation "androidx.work:work-runtime-ktx:$work_manager_runtime_version"
-    implementation "androidx.work:work-runtime:$work_manager_runtime_version"
-    implementation("androidx.startup:startup-runtime:1.1.0")
-    implementation("androidx.hilt:hilt-work:$work_manager_hilt_version")
-    kapt("androidx.hilt:hilt-compiler:$work_manager_hilt_version")
+    implementation Libs.workManagerRunTimeKtx
+    implementation Libs.workManagerRunTime
+    implementation Libs.workManagerStartupRuntime
+    implementation Libs.hiltWorkManager
+    kapt Libs.hiltKapt
 
     // surface view
 //    implementation 'com.google.android.gms:play-services-vision-common:19.1.3'
-    implementation 'com.google.android.gms:play-services-vision:20.1.3'
+    implementation Libs.surfaceView
 
 
     // DataStore
-    def dataStoreVersion = "1.1.1"
-    implementation "androidx.preference:preference-ktx:$dataStoreVersion"
+    def dataStoreVersion = "1.2.0"
+    implementation Libs.dateStore
 
     // permissions
-    implementation 'com.guolindev.permissionx:permissionx:1.5.0'
+    implementation Libs.permissionx
 
     // code scanner
-    implementation 'com.budiyev.android:code-scanner:2.1.0'
+    implementation Libs.codeScanner
 
     // gson
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation Libs.gson
 
 
     // local unit testing
 //    implementation "androidx.test:core:1.2.0"
-    testImplementation "com.google.truth:truth:1.1.2"
+    testImplementation TestLibs.googleTruth
 //    testImplementation "org.hamcrest:hamcrest-all:1.3"
 
     // for InstantTaskExecutorRule
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
+    testImplementation TestLibs.archCoreTesting
+    testImplementation TestLibs.coroutinesTest
 
 //    testImplementation "org.robolectric:robolectric:4.3.1"
 //    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0"
-    testImplementation 'org.mockito:mockito-core:3.10.0'
-    testImplementation 'org.powermock:powermock-core:1.7.4'
-    testImplementation 'org.powermock:powermock-module-testng:1.7.4'
-    testImplementation 'org.powermock:powermock-api-mockito2:1.7.4'
-    testImplementation "org.mockito:mockito-core:3.10.0"
+    testImplementation TestLibs.mockito
+    testImplementation TestLibs.powermockCore
+    testImplementation TestLibs.powermockModuleTestng
+    testImplementation TestLibs.powermockApiMockito2
+    testImplementation TestLibs.mockitoCore
 //    androidTestImplementation "com.google.truth:truth:1.1.2"
-    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
-    testImplementation 'org.mockito:mockito-inline:2.23.0'
+    testImplementation TestLibs.mockitoKotlin2
+    testImplementation TestLibs.powermockInline
 
     // Instrumented Unit Tests
-    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation TestLibs.archCoreTesting
 //    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
+    androidTestImplementation TestLibs.coroutinesTest
 
 
 

@@ -265,8 +265,10 @@ class ScanProductFragment : Fragment(R.layout.fragment_scan_product) {
 
     override fun onDestroy() {
         super.onDestroy()
-        cameraSource.stop()
-        cameraSource.release()
+        if (::cameraSource.isInitialized) {
+            cameraSource.stop()
+            cameraSource.release()
+        }
         _binding = null
     }
 
