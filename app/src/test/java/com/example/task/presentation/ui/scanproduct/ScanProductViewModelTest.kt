@@ -1,10 +1,10 @@
 package com.example.task.presentation.ui.scanproduct
 
-import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.task.data.FakeScanProductRepoTest
-import com.example.task.domain.entity.Product
 import com.example.task.MainCoroutineRule
+import com.example.task.domain.entity.Product
+import com.example.task.domain.usecases.scanproduct.ScanProductUseCase
+import com.example.task.presentation.utils.ResourcesResolver
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
 import org.junit.Before
@@ -22,11 +22,13 @@ class ScanProductViewModelTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
     private lateinit var scanProductViewModelTest: ScanProductViewModel
+    private val resourcesResolver: ResourcesResolver = Mockito.mock(ResourcesResolver::class.java)
+    private val scanProductUseCase: ScanProductUseCase = Mockito.mock(ScanProductUseCase::class.java)
 
     @Before
     fun setUp() {
-        val application = Mockito.mock(Application::class.java)
-        scanProductViewModelTest = ScanProductViewModel(application,FakeScanProductRepoTest())
+        scanProductViewModelTest =
+            ScanProductViewModel(resourcesResolver, scanProductUseCase)
     }
 
 

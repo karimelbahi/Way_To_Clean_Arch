@@ -6,27 +6,27 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.task.R
-import com.example.task.databinding.FragmentProductListBinding
+import com.example.task.databinding.FragmentFreshProductsBinding
 import com.example.task.presentation.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProductListFragment : Fragment(R.layout.fragment_product_list) {
+class FreshProductsFragment : Fragment(R.layout.fragment_fresh_products) {
 
-    val viewModel: ProductListViewModel by viewModels()
+    val viewModel: FreshProductsViewModel by viewModels()
 
-    private var _binding: FragmentProductListBinding? = null
+    private var _binding: FragmentFreshProductsBinding? = null
     private val binding get() = _binding!!
 
     @Inject
-    lateinit var productListAdapter: ProductListAdapter
+    lateinit var freshProductsAdapter: FreshProductsAdapter
 
     @ObsoleteCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentProductListBinding.bind(view)
+        _binding = FragmentFreshProductsBinding.bind(view)
 
         setUpViews()
         setObservers()
@@ -38,7 +38,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
         binding.apply {
             progressCircular.visibility = View.VISIBLE
             recyclerViewCountries.apply {
-                adapter = productListAdapter
+                adapter = freshProductsAdapter
                 layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                 setHasFixedSize(true)
@@ -48,10 +48,15 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFreshProducts()
+
+    }
+
     @ObsoleteCoroutinesApi
     private fun setObservers() {
 
-        viewModel.getProducts()
         binding.progressCircular.visible()
         viewModel.products.observe(viewLifecycleOwner, { products ->
             when (products.status) {
@@ -71,7 +76,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                         products.message?.let { showToast(it) }
                     } else {
                         binding.emptyBoxImg.gone()
-                        productListAdapter.submitList(products.data)
+                        freshProductsAdapter.submitList(products.data)
                     }
                 }
             }

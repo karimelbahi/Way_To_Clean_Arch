@@ -9,7 +9,7 @@ import com.example.task.presentation.ui.expiredproducts.ExpiredProductViewState
 import com.example.task.presentation.utils.convertLongToStrDate
 import javax.inject.Inject
 
-class ExpiredProductViewStateMapperMapperImpl @Inject constructor() :
+class ExpiredProductViewStateMapperImpl @Inject constructor() :
     ExpiredProductViewStateMapper {
 
     override fun mapProductsToViewState(products: List<Product>): List<ExpiredProductViewState> {
@@ -19,12 +19,11 @@ class ExpiredProductViewStateMapperMapperImpl @Inject constructor() :
     override fun mapProductToViewState(product: Product): ExpiredProductViewState {
         return with(product) {
             ExpiredProductViewState(
+                id=id,
                 code = code,
                 name = name,
                 type = type,
-                expiredDate = applySpanToExpiredDate(expiredDate.convertLongToStrDate()),
-                isExpired = product.isExpired,
-                isWarningNotificationScheduled = product.isWarningNotificationScheduled
+                expiredDate = applySpanToExpiredDate(expiredDate.convertLongToStrDate())
             )
         }
 

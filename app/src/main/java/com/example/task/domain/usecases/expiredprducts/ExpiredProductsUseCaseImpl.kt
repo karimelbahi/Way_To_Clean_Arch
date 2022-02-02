@@ -8,6 +8,7 @@ import javax.inject.Inject
 class ExpiredProductsUseCaseImpl @Inject constructor(
     private val repository: ProductsRepo
 ) : ExpiredProductsUseCase {
+
     override suspend fun getExpiredProducts(): Flow<List<Product>> = repository.getExpiredProducts()
 
 }
